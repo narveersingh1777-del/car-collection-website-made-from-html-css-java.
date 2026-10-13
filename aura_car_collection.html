@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA | Car Collection</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  
+  <style>
+    /* Global Styles: Clean Black & White Theme */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      background-color: #000000;
+      color: #ffffff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding-top: 80px; /* Offset for fixed navbar */
+    }
+
+    /* Ultra-Interactive Navbar */
+    .navbar {
+      background-color: rgba(0, 0, 0, 0.85) !important;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff 0%, #888888 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .navbar .nav-link {
+      position: relative;
+      color: #aaaaaa !important;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      padding: 8px 0;
+      margin: 0 12px;
+    }
+
+    .navbar .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: #ffffff;
+      transition: width 0.3s ease;
+    }
+
+    .navbar .nav-link:hover::after, 
+    .navbar .nav-link.active::after {
+      width: 100%;
+    }
+
+    .navbar .nav-link:hover, .navbar .nav-link.active {
+      color: #ffffff !important;
+    }
+
+    .navbar-brand {
+      letter-spacing: 3px;
+      transition: transform 0.3s ease;
+    }
+
+    .navbar-brand:hover {
+      transform: scale(1.08);
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      text-align: center;
+      padding: 140px 20px;
+      background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.95)), 
+                  url('https://ml.globenewswire.com/Resource/Download/48a7aa97-5ef8-488a-810c-147fa3df23e7') no-repeat center center;
+      background-size: cover;
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 1px solid #1c1c1c;
+    }
+
+    /* Buttons */
+    .btn-light {
+      background-color: #ffffff;
+      color: #000000;
+      font-weight: 600;
+      border: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-light:hover {
+      background-color: #e0e0e0;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(255, 255, 255, 0.4);
+    }
+
+    .btn-outline-light {
+      font-weight: 600;
+      border-color: #444;
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline-light:hover {
+      background-color: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+    }
+
+    /* Cards with High-Visibility Glow Shadow */
+    .card {
+      background-color: #0d0d0d !important;
+      border: 2px solid #2a2a2a;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 15px rgba(255, 255, 255, 0.04);
+      transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: #888888;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 1), 0 0 30px rgba(255, 255, 255, 0.25);
+    }
+
+    .card-img-top {
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .card:hover .card-img-top {
+      transform: scale(1.07);
+    }
+
+    .card-body {
+      padding: 1.5rem;
+    }
+
+    /* Dark Input Form Control */
+    .form-control, .form-select {
+      background-color: #121212 !important;
+      border: 1px solid #2e2e2e !important;
+      color: #ffffff !important;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-control:focus, .form-select:focus {
+      border-color: #888888 !important;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2) !important;
+      outline: none;
+    }
+
+    .form-control::placeholder {
+      color: #666666;
+    }
+
+    /* Contact Info Cards */
+    .info-card {
+      background-color: #0d0d0d;
+      border: 1px solid #222222;
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .info-card:hover {
+      border-color: #555555;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 20px rgba(255, 255, 255, 0.05);
+    }
+
+    .info-icon {
+      width: 48px;
+      height: 48px;
+      background: #1a1a1a;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      color: #ffffff;
+      margin-bottom: 12px;
+      border: 1px solid #333333;
+    }
+
+    /* Sports Info & About Section */
+    .sports-info {
+      max-width: 900px;
+      margin: 20px auto;
+      text-align: center;
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: #aaaaaa;
+    }
+
+    .about-box {
+      background: linear-gradient(180deg, #0d0d0d 0%, #050505 100%);
+      border: 1px solid #1f1f1f;
+      border-radius: 16px;
+      padding: 40px;
+    }
+
+    /* Modal Styling */
+    .modal-content {
+      background-color: #121212;
+      border: 1px solid #333333;
+      color: #ffffff;
+    }
+
+    .modal-header {
+      border-bottom: 1px solid #222222;
+    }
+
+    .modal-footer {
+      border-top: 1px solid #222222;
+    }
+
+    .spec-item {
+      background-color: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+
+    /* Custom Toast Container */
+    .toast-container {
+      z-index: 1090;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #050505;
+      border-top: 1px solid #1c1c1c;
+      color: #777777;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold fs-3 gradient-text" href="#">AURA</a>
+      <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" 
+              data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" 
+              aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="container">
+      <h1 class="display-3 fw-bold gradient-text mb-3">Car Collection</h1>
+      <h2 class="h4 text-light fw-normal mb-4">Unleash the Power of Speed</h2>
+      <p class="lead text-secondary mx-auto mb-5" style="max-width: 700px;">
+        Discover legendary sports cars from around the world. From Italian masterpieces 
+        to German engineering marvels, our collection celebrates design, performance, and innovation.
+      </p>
+      <div>
+        <a href="#gallery" class="btn btn-light btn-lg px-4 me-2">Explore Gallery</a>
+        <a href="#contact" class="btn btn-outline-light btn-lg px-4">Contact Showroom</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container py-5">
+    
+    <!-- About Section -->
+    <section id="about" class="py-5">
+      <div class="about-box shadow-lg">
+        <div class="sports-info">
+          <h2 class="text-center fw-bold mb-4 gradient-text fs-1">ABOUT AURA</h2>
+          <h4 class="text-white mb-3 fw-semibold">Engineering Excellence & Passion</h4>
+          <p class="mb-4">
+            Sports cars represent the ultimate synthesis of high performance, aerodynamic perfection, and pure emotion. 
+            At AURA, we curate an exclusive portfolio of hypercars and supercars engineered by the world's premier automotive artisans.
+          </p>
+          <div class="row g-4 mt-2 text-start">
+            <div class="col-md-4">
+              <div class="p-3 border border-secondary border-opacity-25 rounded-3 bg-black">
+                <i class="bi bi-speedometer2 text-white fs-3 mb-2 d-block"></i>
+                <h5 class="text-white">Peak Performance</h5>
+                <p class="text-secondary small mb-0">From twin-turbo V8s to iconic quad-turbo W16s and hyper-hybrid powertrains.</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="p-3 border border-secondary border-opacity-25 rounded-3 bg-black">
+                <i class="bi bi-gem text-white fs-3 mb-2 d-block"></i>
+                <h5 class="text-white">Bespoke Precision</h5>
+                <p class="text-secondary small mb-0">Carbon fiber monocages, active aerodynamics, and ultra-luxury hand-stitched interiors.</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="p-3 border border-secondary border-opacity-25 rounded-3 bg-black">
+                <i class="bi bi-shield-check text-white fs-3 mb-2 d-block"></i>
+                <h5 class="text-white">Global Concierge</h5>
+                <p class="text-secondary small mb-0">Unmatched client service, worldwide transport, and dedicated track support.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-5">
+      <h2 class="text-center fw-bold mb-5 tracking-wide gradient-text fs-1">GALLERY</h2>
+      <div class="row g-4">
+        
+        <!-- Car 1 -->
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="ratio ratio-16x9">
+              <img src="https://tse4.mm.bing.net/th/id/OIP.-wtRKCICcILF5WqJLjODxgHaED" class="card-img-top" alt="FORD Mustang" onerror="this.onerror=null;this.src='https://placehold.co/600x400/111/fff?text=Ford+Mustang';">
+            </div>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title fw-bold text-white">FORD Mustang</h5>
+              <p class="card-text text-secondary">A stylish modern car with advanced features and iconic muscle heritage.</p>
+              <button class="btn btn-outline-light mt-auto w-100 py-2" onclick="showDetails('mustang')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Car 2 -->
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="ratio ratio-16x9">
+              <img src="https://www.carscoops.com/wp-content/uploads/2022/10/Lamborghini-Aventador-SVJ-a.jpg" class="card-img-top" alt="Lamborghini" onerror="this.onerror=null;this.src='https://placehold.co/600x400/111/fff?text=Lamborghini';">
+            </div>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title fw-bold text-white">Lamborghini</h5>
+              <p class="card-text text-secondary">A masterpiece that combines aggressive Italian design and blistering performance.</p>
+              <button class="btn btn-outline-light mt-auto w-100 py-2" onclick="showDetails('lamborghini')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Car 3 -->
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="ratio ratio-16x9">
+              <img src="https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i7QAhDgPSfak/v1/-1x-1.jpg" class="card-img-top" alt="Mercedes" onerror="this.onerror=null;this.src='https://placehold.co/600x400/111/fff?text=Mercedes-AMG';">
+            </div>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title fw-bold text-white">Mercedes</h5>
+              <p class="card-text text-secondary">A powerful sports car engineered for supreme speed and luxury comfort.</p>
+              <button class="btn btn-outline-light mt-auto w-100 py-2" onclick="showDetails('mercedes')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Car 4 -->
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="ratio ratio-16x9">
+              <img src="https://tse3.mm.bing.net/th/id/OIP.CGNcryVm6Kb7G_X740Oy4QHaEK?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" class="card-img-top" alt="McLaren" onerror="this.onerror=null;this.src='https://placehold.co/600x400/111/fff?text=McLaren+720S';">
+            </div>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title fw-bold text-white">McLaren</h5>
+              <p class="card-text text-secondary">Precision aerodynamics and breathtaking speed born from racing pedigree.</p>
+              <button class="btn btn-outline-light mt-auto w-100 py-2" onclick="showDetails('mclaren')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Car 5 -->
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="ratio ratio-16x9">
+              <img src="https://img-new.cgtrader.com/items/2495052/c2ed4a84c4/ferrari-sf90-stradale-2021-3d-model-max.jpg" class="card-img-top" alt="Ferrari" onerror="this.onerror=null;this.src='https://placehold.co/600x400/111/fff?text=Ferrari+SF90';">
+            </div>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title fw-bold text-white">Ferrari</h5>
+              <p class="card-text text-secondary">Iconic Italian design paired with unmatched track performance.</p>
+              <button class="btn btn-outline-light mt-auto w-100 py-2" onclick="showDetails('ferrari')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Car 6 -->
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="ratio ratio-16x9">
+              <img src="https://images.carexpert.com.au/crop/1200/630/app/uploads/2022/10/audi-r8-v10-gt-rwd-coupe-3.jpg" class="card-img-top" alt="Audi R8" onerror="this.onerror=null;this.src='https://placehold.co/600x400/111/fff?text=Audi+R8';">
+            </div>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title fw-bold text-white">Audi R8</h5>
+              <p class="card-text text-secondary">A daily-drivable supercar where everyday luxury meets motorsport technology.</p>
+              <button class="btn btn-outline-light mt-auto w-100 py-2" onclick="showDetails('audi')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Car 7 -->
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="ratio ratio-16x9">
+              <img src="https://tse4.mm.bing.net/th/id/OIP.cwUzdFl-UXdY7-KD10vuBAHaEK?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" class="card-img-top" alt="Porsche 911" onerror="this.onerror=null;this.src='https://placehold.co/600x400/111/fff?text=Porsche+911';">
+            </div>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title fw-bold text-white">Porsche 911</h5>
+              <p class="card-text text-secondary">Timeless silhouette combined with peerless modern engineering.</p>
+              <button class="btn btn-outline-light mt-auto w-100 py-2" onclick="showDetails('porsche')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Car 8 -->
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="ratio ratio-16x9">
+              <img src="https://tse3.mm.bing.net/th/id/OIP.J2VKhp8nMvP-F-kLWOsxMgAAAA?r=0&w=474&h=284&rs=1&pid=ImgDetMain&o=7&rm=3" class="card-img-top" alt="Bugatti Chiron" onerror="this.onerror=null;this.src='https://placehold.co/600x400/111/fff?text=Bugatti+Chiron';">
+            </div>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title fw-bold text-white">Bugatti Chiron</h5>
+              <p class="card-text text-secondary">Unmatched top speed and ultra-luxury craftsmanship in one hypercar package.</p>
+              <button class="btn btn-outline-light mt-auto w-100 py-2" onclick="showDetails('bugatti')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Car 9 -->
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="ratio ratio-16x9">
+              <img src="https://sf2.autojournal.fr/wp-content/uploads/sportauto/2024/02/aston-martin-vantage-gt4_01.jpg" class="card-img-top" alt="Aston Martin" onerror="this.onerror=null;this.src='https://placehold.co/600x400/111/fff?text=Aston+Martin';">
+            </div>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title fw-bold text-white">Aston Martin</h5>
+              <p class="card-text text-secondary">Sophisticated British elegance infused with raw athletic performance.</p>
+              <button class="btn btn-outline-light mt-auto w-100 py-2" onclick="showDetails('aston')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold tracking-wide gradient-text fs-1">CONTACT US</h2>
+        <p class="text-secondary">Get in touch with our specialist team or schedule a private viewing</p>
+      </div>
+
+      <div class="row g-4">
+        <!-- Contact Info Cards -->
+        <div class="col-lg-5">
+          <div class="d-flex flex-column gap-3">
+            
+            <div class="info-card">
+              <div class="d-flex align-items-start gap-3">
+                <div class="info-icon flex-shrink-0">
+                  <i class="bi bi-geo-alt-fill"></i>
+                </div>
+                <div>
+                  <h6 class="text-white fw-bold mb-1">Global Headquarters</h6>
+                  <p class="text-secondary small mb-0">742 Apex Boulevard, Performance Drive<br>Automotive District, Monaco</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="d-flex align-items-start gap-3">
+                <div class="info-icon flex-shrink-0">
+                  <i class="bi bi-telephone-fill"></i>
+                </div>
+                <div>
+                  <h6 class="text-white fw-bold mb-1">Direct Inquiries</h6>
+                  <p class="text-secondary small mb-0">+1 (800) 555-AURA (2872)<br>+44 20 7946 0912</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="d-flex align-items-start gap-3">
+                <div class="info-icon flex-shrink-0">
+                  <i class="bi bi-envelope-fill"></i>
+                </div>
+                <div>
+                  <h6 class="text-white fw-bold mb-1">Email Concierge</h6>
+                  <p class="text-secondary small mb-0">vip@auracollection.com<br>sales@auracollection.com</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="d-flex align-items-start gap-3">
+                <div class="info-icon flex-shrink-0">
+                  <i class="bi bi-clock-fill"></i>
+                </div>
+                <div>
+                  <h6 class="text-white fw-bold mb-1">Showroom Hours</h6>
+                  <p class="text-secondary small mb-0">Mon - Fri: 09:00 AM - 08:00 PM<br>Sat - Sun: Private Appointment Only</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dark Map Placeholder Badge -->
+            <div class="info-card position-relative overflow-hidden p-0" style="height: 140px; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('https://placehold.co/800x300/181818/333333?text=Monaco+Showroom+Location') center/cover;">
+              <div class="position-absolute top-50 start-50 translate-middle text-center w-100 px-3">
+                <span class="badge bg-light text-dark mb-1"><i class="bi bi-pin-map-fill me-1"></i> Interactive Map</span>
+                <p class="text-white-50 small mb-0">AURA Flagship Showroom - Port Hercules</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="col-lg-7">
+          <div class="card p-4 h-100 justify-content-center">
+            <h4 class="text-white fw-bold mb-3">Send Us a Message</h4>
+            <p class="text-secondary small mb-4">Interested in acquiring a vehicle or scheduling a test drive? Fill out the form below and an AURA advisor will contact you within 24 hours.</p>
+
+            <form id="contactForm" onsubmit="handleContactSubmit(event)">
+              <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                  <label for="userName" class="form-label text-secondary small">Full Name *</label>
+                  <input type="text" class="form-control" id="userName" placeholder="John Doe" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="userEmail" class="form-label text-secondary small">Email Address *</label>
+                  <input type="email" class="form-control" id="userEmail" placeholder="john@example.com" required>
+                </div>
+              </div>
+
+              <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                  <label for="userPhone" class="form-label text-secondary small">Phone Number</label>
+                  <input type="tel" class="form-control" id="userPhone" placeholder="+1 (555) 000-0000">
+                </div>
+                <div class="col-md-6">
+                  <label for="carInterest" class="form-label text-secondary small">Vehicle of Interest</label>
+                  <select class="form-select" id="carInterest">
+                    <option value="General Inquiry">General Inquiry</option>
+                    <option value="FORD Mustang Dark Horse">FORD Mustang Dark Horse</option>
+                    <option value="Lamborghini Aventador SVJ">Lamborghini Aventador SVJ</option>
+                    <option value="Mercedes-AMG GT Black Series">Mercedes-AMG GT Black Series</option>
+                    <option value="McLaren 720S">McLaren 720S</option>
+                    <option value="Ferrari SF90 Stradale">Ferrari SF90 Stradale</option>
+                    <option value="Audi R8 V10 Performance GT">Audi R8 V10 Performance GT</option>
+                    <option value="Porsche 911 GT3 RS">Porsche 911 GT3 RS</option>
+                    <option value="Bugatti Chiron Super Sport">Bugatti Chiron Super Sport</option>
+                    <option value="Aston Martin Vantage GT4">Aston Martin Vantage GT4</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <label for="userMessage" class="form-label text-secondary small">Message *</label>
+                <textarea class="form-control" id="userMessage" rows="4" placeholder="Tell us about your requirements or preferred appointment time..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-light btn-lg w-100 py-3 fw-bold">
+                <i class="bi bi-send-fill me-2"></i> Submit Inquiry
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Car Specifications Modal -->
+  <div class="modal fade" id="carModal" tabindex="-1" aria-labelledby="carModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold gradient-text fs-4" id="modalCarTitle">Car Details</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="ratio ratio-16x9 mb-4 rounded overflow-hidden">
+            <img id="modalCarImg" src="" alt="Car Image" style="object-fit: cover;" onerror="this.onerror=null;this.src='https://placehold.co/800x450/1a1a1a/ffffff?text=Vehicle+Image';">
+          </div>
+          <p id="modalCarDescription" class="text-secondary fs-5 mb-4"></p>
+          
+          <div class="row g-3">
+            <div class="col-6 col-md-3">
+              <div class="spec-item text-center">
+                <small class="text-secondary d-block">Engine</small>
+                <strong id="specEngine" class="text-white">-</strong>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="spec-item text-center">
+                <small class="text-secondary d-block">Horsepower</small>
+                <strong id="specHp" class="text-white">-</strong>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="spec-item text-center">
+                <small class="text-secondary d-block">0–60 mph</small>
+                <strong id="specAccel" class="text-white">-</strong>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="spec-item text-center">
+                <small class="text-secondary d-block">Top Speed</small>
+                <strong id="specSpeed" class="text-white">-</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container for Interactive Submission Feedback -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="contactToast" class="toast align-items-center text-bg-dark border-secondary" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body fs-6" id="toastMessage">
+          <i class="bi bi-check-circle-fill text-success me-2"></i> Inquiry submitted successfully!
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="text-center py-4">
+    <div class="container">
+      <p class="mb-0">&copy; 2026 AURA Car Collection. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Detailed spec data for each vehicle
+    const carData = {
+      mustang: {
+        title: "FORD Mustang Dark Horse",
+        img: "https://tse4.mm.bing.net/th/id/OIP.-wtRKCICcILF5WqJLjODxgHaED",
+        description: "The Ford Mustang Dark Horse represents the pinnacle of 5.0L V8 performance, blending classic American muscle power with track-ready handling dynamics.",
+        engine: "5.0L Coyote V8",
+        hp: "500 HP",
+        accel: "3.7 sec",
+        speed: "166 mph"
+      },
+      lamborghini: {
+        title: "Lamborghini Aventador SVJ",
+        img: "https://www.carscoops.com/wp-content/uploads/2022/10/Lamborghini-Aventador-SVJ-a.jpg",
+        description: "Designed to push performance limits, the Aventador SVJ features active aerodynamics (ALA 2.0) and an ultra-lightweight carbon fiber build.",
+        engine: "6.5L V12",
+        hp: "770 HP",
+        accel: "2.8 sec",
+        speed: "217 mph"
+      },
+      mercedes: {
+        title: "Mercedes-AMG GT Black Series",
+        img: "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i7QAhDgPSfak/v1/-1x-1.jpg",
+        description: "Directly derived from motorsport, the AMG GT Black Series features motorsport-derived aerodynamics and the most powerful AMG V8 engine ever produced.",
+        engine: "4.0L Twin-Turbo V8",
+        hp: "720 HP",
+        accel: "3.1 sec",
+        speed: "202 mph"
+      },
+      mclaren: {
+        title: "McLaren 720S",
+        img: "https://tse3.mm.bing.net/th/id/OIP.CGNcryVm6Kb7G_X740Oy4QHaEK?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
+        description: "Lighter, stronger, and faster, the McLaren 720S utilizes a carbon-fiber Monocage II chassis for relentless supercar performance.",
+        engine: "4.0L Twin-Turbo V8",
+        hp: "710 HP",
+        accel: "2.8 sec",
+        speed: "212 mph"
+      },
+      ferrari: {
+        title: "Ferrari SF90 Stradale",
+        img: "https://img-new.cgtrader.com/items/2495052/c2ed4a84c4/ferrari-sf90-stradale-2021-3d-model-max.jpg",
+        description: "Ferrari's first series-production PHEV supercar combines a V8 engine with three electric motors to deliver hypercar-level acceleration.",
+        engine: "4.0L V8 Turbo + Electric",
+        hp: "986 HP",
+        accel: "2.5 sec",
+        speed: "211 mph"
+      },
+      audi: {
+        title: "Audi R8 V10 Performance GT",
+        img: "https://images.carexpert.com.au/crop/1200/630/app/uploads/2022/10/audi-r8-v10-gt-rwd-coupe-3.jpg",
+        description: "Featuring a naturally aspirated V10 engine, the Audi R8 delivers raw supercar sounds and everyday drivability in a striking mid-engine layout.",
+        engine: "5.2L FSI V10",
+        hp: "612 HP",
+        accel: "3.1 sec",
+        speed: "204 mph"
+      },
+      porsche: {
+        title: "Porsche 911 GT3 RS",
+        img: "https://tse4.mm.bing.net/th/id/OIP.cwUzdFl-UXdY7-KD10vuBAHaEK?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
+        description: "Engineered purely for performance, the 911 GT3 RS brings uncompromising motorsport technology and extreme downforce to road-legal driving.",
+        engine: "4.0L Flat-6",
+        hp: "518 HP",
+        accel: "3.0 sec",
+        speed: "184 mph"
+      },
+      bugatti: {
+        title: "Bugatti Chiron Super Sport",
+        img: "https://tse3.mm.bing.net/th/id/OIP.J2VKhp8nMvP-F-kLWOsxMgAAAA?r=0&w=474&h=284&rs=1&pid=ImgDetMain&o=7&rm=3",
+        description: "The ultimate hyper sports car combining extreme speed with unmatched luxury engineering and iconic quad-turbo W16 performance.",
+        engine: "8.0L Quad-Turbo W16",
+        hp: "1578 HP",
+        accel: "2.3 sec",
+        speed: "273 mph"
+      },
+      aston: {
+        title: "Aston Martin Vantage GT4",
+        img: "https://sf2.autojournal.fr/wp-content/uploads/sportauto/2024/02/aston-martin-vantage-gt4_01.jpg",
+        description: "An uncompromising sports car designed to deliver razor-sharp responses, distinctive British styling, and immense twin-turbo V8 power.",
+        engine: "4.0L Twin-Turbo V8",
+        hp: "656 HP",
+        accel: "3.4 sec",
+        speed: "202 mph"
+      }
+    };
+
+    function showDetails(carKey) {
+      const car = carData[carKey];
+      if (car) {
+        document.getElementById('modalCarTitle').innerText = car.title;
+        document.getElementById('modalCarImg').src = car.img;
+        document.getElementById('modalCarDescription').innerText = car.description;
+        document.getElementById('specEngine').innerText = car.engine;
+        document.getElementById('specHp').innerText = car.hp;
+        document.getElementById('specAccel').innerText = car.accel;
+        document.getElementById('specSpeed').innerText = car.speed;
+
+        const carModal = new bootstrap.Modal(document.getElementById('carModal'));
+        carModal.show();
+      }
+    }
+
+    function handleContactSubmit(event) {
+      event.preventDefault();
+      
+      const name = document.getElementById('userName').value;
+      const car = document.getElementById('carInterest').value;
+
+      document.getElementById('toastMessage').innerHTML = 
+        `<i class="bi bi-check-circle-fill text-success me-2"></i> Thank you, <strong>${name}</strong>! Your inquiry regarding <em>${car}</em> has been received.`;
+
+      const toastEl = document.getElementById('contactToast');
+      const toast = new bootstrap.Toast(toastEl, { delay: 4000 });
+      toast.show();
+
+      document.getElementById('contactForm').reset();
+    }
+
+    // Dynamic nav active state on scroll
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('section, header');
+      const navLinks = document.querySelectorAll('.navbar .nav-link');
+      let current = '';
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 100;
+        if (pageYOffset >= sectionTop) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (current && link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        } else if (!current && link.getAttribute('href') === '#') {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
